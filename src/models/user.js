@@ -30,6 +30,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'level',
         key: 'id'
       }
+    },
+    is_active: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,
