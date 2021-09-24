@@ -60,7 +60,7 @@ CREATE TABLE `flags` (
   `other` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `flags` (
 
 LOCK TABLES `flags` WRITE;
 /*!40000 ALTER TABLE `flags` DISABLE KEYS */;
-INSERT INTO `flags` VALUES (1,0,0,0,0,0),(2,0,0,0,0,0),(3,0,0,0,0,0),(4,0,0,0,0,0),(5,0,0,0,0,0),(6,0,0,0,0,0),(7,0,0,0,0,0);
+INSERT INTO `flags` VALUES (1,0,0,0,0,0),(2,0,0,0,0,0),(3,0,0,0,0,0),(4,0,0,0,0,0),(5,0,0,0,0,0),(6,0,0,0,0,0),(7,0,0,0,0,0),(8,0,0,0,0,0),(9,0,0,0,0,0),(10,0,0,0,0,0),(11,0,0,0,0,0),(12,0,0,0,0,0),(13,0,0,0,0,0),(14,0,0,0,0,0),(15,0,0,0,0,0),(16,0,0,0,0,0),(17,0,0,0,0,0),(18,0,0,0,0,0),(19,0,0,0,0,0),(20,0,0,0,0,0),(21,0,0,0,0,0),(22,0,0,0,0,0),(23,0,0,0,0,0),(24,0,0,0,0,0);
 /*!40000 ALTER TABLE `flags` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,6 +126,7 @@ CREATE TABLE `relationship` (
 
 LOCK TABLES `relationship` WRITE;
 /*!40000 ALTER TABLE `relationship` DISABLE KEYS */;
+INSERT INTO `relationship` VALUES (1,10,1);
 /*!40000 ALTER TABLE `relationship` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +150,7 @@ CREATE TABLE `user` (
   KEY `fk_user_level1_idx` (`levelId`),
   CONSTRAINT `fk_user_flags1` FOREIGN KEY (`flagsId`) REFERENCES `flags` (`id`),
   CONSTRAINT `fk_user_level1` FOREIGN KEY (`levelId`) REFERENCES `level` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +159,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'DRYK','none',1,1,0),(2,'USER1','ksajdhasjkdhakjowkpda',6,1,1),(3,'USER1','ksajdhasjkdhakjowkpda',7,1,1);
+INSERT INTO `user` VALUES (1,'DRYK','none',1,1,0),(2,'USER1','ksajdhasjkdhakjowkpda',6,1,1),(3,'USER1','ksajdhasjkdhakjowkpda',7,1,1),(4,'dasdw','sdjkahdi',12,1,1),(5,'das','sdjkahdi',13,1,1),(6,'das','sdjkahdi',14,1,1),(7,'das','sdjkahdi',15,1,1),(8,'das','sdjkahdi',16,1,1),(9,'das','sdjkahdi',17,1,1),(10,'das','sdjkahdi',18,1,1),(11,'das','sdjkahdi',19,1,1),(12,'dasd','sdjkahdi',20,1,1),(13,'dasd','sdjkahdi',21,1,1),(14,'dasd','sdjkahdi',22,1,1),(15,'dasd','sdjkahdi',23,1,1),(16,'dasd','sdjkahdi',24,1,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -171,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-24  1:13:18
+-- Dump completed on 2021-09-24  2:59:46

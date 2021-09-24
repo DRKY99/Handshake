@@ -57,6 +57,7 @@ router.route("/").post(async (req, res) => {
 	const { nickname, public_key } = req.body;
 
 	const handleError = (error) => {
+		console.log(error);
 		res.status(400).json({ error });
 	};
 
