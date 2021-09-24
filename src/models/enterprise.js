@@ -22,6 +22,11 @@ module.exports = function(sequelize, DataTypes) {
     ceo: {
       type: DataTypes.STRING(150),
       allowNull: false
+    },
+    is_active: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,

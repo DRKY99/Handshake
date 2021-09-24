@@ -1,7 +1,8 @@
 import express, { json } from "express";
 import morgan from "morgan";
 import cors from "cors";
-import _routes from "./routes/user.routes";
+import user_routes from "./routes/user.routes";
+import enterprise_routes from "./routes/enterprise.routes";
 
 require("dotenv").config();
 
@@ -24,7 +25,8 @@ export default class App {
 	}
 
 	routes() {
-		this.app.use("/user", _routes);
+		this.app.use("/user", user_routes);
+		this.app.use("/enterprise", enterprise_routes);
 	}
 
 	async listen() {

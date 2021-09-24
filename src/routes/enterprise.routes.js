@@ -12,23 +12,16 @@ router
 			res.status(400).json({ error });
 		};
 
-		await models.user
+		await models.enterprise
 			.findOne({
 				where: {
 					id: req.params.id,
 					is_active: 1,
 				},
-				attributes: ["id", "nickname", "public_key"],
-				include: [
-					{
-						model: models.flags,
-						as: "flag",
-					},
-				],
 			})
-			.then((user) => {
-				if (!user) throw "unaccessible";
-				res.json(user);
+			.then((enterprise) => {
+				if (!enterprise) throw "unaccessible";
+				res.json(enterprise);
 			})
 			.catch(handleError);
 	})
@@ -37,7 +30,7 @@ router
 			res.status(400).json({ error });
 		};
 
-		await models.user
+		await models.enterprise
 			.update(
 				{ is_active: 0 },
 				{
@@ -46,34 +39,23 @@ router
 					},
 				}
 			)
-			.then((user) => {
-				console.log(user);
+			.then((enterprise) => {
 				res.json({ message: "success" });
 			})
 			.catch(handleError);
 	});
 
 router.route("/").post(async (req, res) => {
-	const { nickname, public_key } = req.body;
+	const { name, public_key, contact_data, ceo } = req.body;
 
 	const handleError = (error) => {
 		res.status(400).json({ error });
 	};
 
-	await models.flags
-		.create({})
-		.then(async (flag) => {
-			await models.user
-				.create({
-					nickname,
-					public_key,
-					flagsId: flag.id,
-					levelId: 1,
-				})
-				.then((user) => {
-					res.json({ id: user.id });
-				})
-				.catch(handleError);
+	await models.enterprise
+		.create({ name, public_key, contact_data, ceo })
+		.then(async (enterprise) => {
+			res.json({ id: enterprise.id });
 		})
 		.catch(handleError);
 });
