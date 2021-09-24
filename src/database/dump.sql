@@ -28,9 +28,10 @@ CREATE TABLE `enterprise` (
   `public_key` text NOT NULL,
   `contact_data` text NOT NULL,
   `ceo` varchar(150) NOT NULL,
+  `is_active` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +40,7 @@ CREATE TABLE `enterprise` (
 
 LOCK TABLES `enterprise` WRITE;
 /*!40000 ALTER TABLE `enterprise` DISABLE KEYS */;
+INSERT INTO `enterprise` VALUES (1,'Microsoft','none','3443241313','Bill Gates',0),(2,'Apple','ksajdhasjkdhakjowkpda','lsajdawa','Steve Jobs',1);
 /*!40000 ALTER TABLE `enterprise` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +60,7 @@ CREATE TABLE `flags` (
   `other` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +69,7 @@ CREATE TABLE `flags` (
 
 LOCK TABLES `flags` WRITE;
 /*!40000 ALTER TABLE `flags` DISABLE KEYS */;
-INSERT INTO `flags` VALUES (1,0,0,0,0,0);
+INSERT INTO `flags` VALUES (1,0,0,0,0,0),(2,0,0,0,0,0),(3,0,0,0,0,0),(4,0,0,0,0,0),(5,0,0,0,0,0),(6,0,0,0,0,0),(7,0,0,0,0,0);
 /*!40000 ALTER TABLE `flags` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,13 +142,14 @@ CREATE TABLE `user` (
   `public_key` text NOT NULL,
   `flagsId` int NOT NULL,
   `levelId` int NOT NULL,
+  `is_active` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_user_flags1_idx` (`flagsId`),
   KEY `fk_user_level1_idx` (`levelId`),
   CONSTRAINT `fk_user_flags1` FOREIGN KEY (`flagsId`) REFERENCES `flags` (`id`),
   CONSTRAINT `fk_user_level1` FOREIGN KEY (`levelId`) REFERENCES `level` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +158,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'DRYK','none',1,1);
+INSERT INTO `user` VALUES (1,'DRYK','none',1,1,0),(2,'USER1','ksajdhasjkdhakjowkpda',6,1,1),(3,'USER1','ksajdhasjkdhakjowkpda',7,1,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -168,4 +171,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-24  0:47:09
+-- Dump completed on 2021-09-24  1:13:18
