@@ -1,14 +1,15 @@
 {
 	"development": {
 		"username": "root",
-		"password": "5272",
+		"password": "Thor1234",
+		"port": "3307",
 		"database": "handshake",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
 	},
 	"test": {
 		"username": "root",
-		"password": "5272",
+		"password": "Thor1234",
 		"database": "handshake",
 		"host": "127.0.0.1",
 		"dialect": "mysql"

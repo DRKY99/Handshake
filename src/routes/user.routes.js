@@ -18,6 +18,7 @@ router
 				where: {
 					id: req.params.id,
 				},
+				port: 3307,
 				attributes: ["id", "nickname", "public_key"],
 				include: [
 					{

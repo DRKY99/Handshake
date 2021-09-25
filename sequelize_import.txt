@@ -1,1 +1,1 @@
-npx sequelize-auto -o "./src/models" -d handshake -h localhost -u root -x 5272 -p 3306 -e mysql
+npx sequelize-auto -o "./src/models" -d handshake -h localhost -u root -x Thor1234 -p 3307 -e mysql
