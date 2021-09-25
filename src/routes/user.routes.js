@@ -2,6 +2,10 @@ import { Router } from "express";
 import sequelize from "../database/database";
 import { DataType } from "sequelize";
 import Models from "../models/init-models";
+import jwt from "jsonwebtoken";
+import { v4 as uuidV4 } from "uuid";
+require("dotenv").config();
+
 const router = Router();
 const models = Models(sequelize, DataType);
 
@@ -47,15 +51,13 @@ router
 				}
 			)
 			.then((user) => {
-				console.log(user);
 				res.json({ message: "success" });
 			})
 			.catch(handleError);
 	});
 
 router.route("/").post(async (req, res) => {
-	const { nickname, public_key } = req.body;
-
+	const { nickname, public_key, email, mac } = req.body;
 	const handleError = (error) => {
 		console.log(error);
 		res.status(400).json({ error });
@@ -67,16 +69,40 @@ router.route("/").post(async (req, res) => {
 			await models.user
 				.create({
 					nickname,
+					email,
 					public_key,
 					flagsId: flag.id,
 					levelId: 1,
 				})
-				.then((user) => {
-					res.json({ id: user.id });
+				.then(async (user) => {
+					await models.device
+						.create({
+							mac,
+							userId: user.id,
+						})
+						.then((device) => {
+							const vinculation_token = generateToken({
+								deviceId: device.id,
+								userId: user.id,
+							});
+							const remote_key = uuidV4(process.env.SALT);
+							res.json({
+								id: user.id,
+								vinculation_token,
+								remote_key,
+							});
+						})
+						.catch(handleError);
 				})
 				.catch(handleError);
 		})
 		.catch(handleError);
 });
+
+const generateToken = (data) => {
+	return jwt.sign({ data }, process.env.JWT_SECRET, {
+		expiresIn: 3600,
+	});
+};
 
 export default router;

@@ -1,4 +1,5 @@
 var DataTypes = require("sequelize").DataTypes;
+var _device = require("./device");
 var _enterprise = require("./enterprise");
 var _flags = require("./flags");
 var _level = require("./level");
@@ -6,6 +7,7 @@ var _relationship = require("./relationship");
 var _user = require("./user");
 
 function initModels(sequelize) {
+  var device = _device(sequelize, DataTypes);
   var enterprise = _enterprise(sequelize, DataTypes);
   var flags = _flags(sequelize, DataTypes);
   var level = _level(sequelize, DataTypes);
@@ -22,10 +24,13 @@ function initModels(sequelize) {
   flags.hasMany(user, { as: "users", foreignKey: "flagsId"});
   user.belongsTo(level, { as: "level", foreignKey: "levelId"});
   level.hasMany(user, { as: "users", foreignKey: "levelId"});
+  device.belongsTo(user, { as: "user", foreignKey: "userId"});
+  user.hasMany(device, { as: "devices", foreignKey: "userId"});
   relationship.belongsTo(user, { as: "user", foreignKey: "userId"});
   user.hasMany(relationship, { as: "relationships", foreignKey: "userId"});
 
   return {
+    device,
     enterprise,
     flags,
     level,
