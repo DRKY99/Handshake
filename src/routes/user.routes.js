@@ -13,6 +13,7 @@ router
 	.route("/:id")
 	.get(async (req, res) => {
 		const handleError = (error) => {
+			console.log(error);
 			res.status(400).json({ error });
 		};
 
@@ -28,6 +29,7 @@ router
 						model: models.flags,
 						as: "flag",
 					},
+					{ model: models.level, as: "level" },
 				],
 			})
 			.then((user) => {
@@ -55,6 +57,41 @@ router
 			})
 			.catch(handleError);
 	});
+
+router.route("/lvl_one/:id").get(async (req, res) => {
+	console.log(req.params.id);
+	const handleError = (error) => {
+		console.log(error);
+		res.status(400).json({ error });
+	};
+
+	await models.user
+		.findOne({
+			where: {
+				id: req.params.id,
+			},
+		})
+		.then(async (user) => {
+			console.log(user.flagsId);
+			await user.update({ levelId: 2 });
+			await models.flags
+				.update(
+					{ name: 1, phone: 1 },
+					{
+						where: {
+							id: user.flagsId,
+						},
+					}
+				)
+				.then((flag) => {
+					res.json({
+						message: "success",
+					});
+				})
+				.catch(handleError);
+		})
+		.catch(handleError);
+});
 
 router.route("/").post(async (req, res) => {
 	const { nickname, public_key, email, mac } = req.body;
